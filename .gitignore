@@ -1,0 +1,151 @@
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.logs
+*.ctxt
+.mtj.tmp/
+*.nar
+hs_err_pid*
+replay_pid*
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Spring Boot
+*.log
+logs/
+spring.log
+application-*.yml
+application-*.properties
+!application.yml
+!application.properties
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.env
+venv/
+ENV/
+
+# IDE - IntelliJ
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+# IDE - VS Code
+.vscode/
+*.code-workspace
+.history/
+
+# IDE - Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+# OS specific
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Application specific
+/data/
+/logs/
+*.log
+*.log.*
+/uploads/
+/downloads/
+/temp/
+
+# Docker
+.docker/
+docker-compose.override.yml
+
+# Secrets and Configurations
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+**/application-local.yml
+**/application-dev.yml
+**/application-prod.yml
+**/secrets.yml
+**/secrets.properties
+
+# Test coverage reports
+/coverage/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.coverage.*
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Documentation
+/docs/_build/
+/site/
+
+# Node (for frontend if needed later)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local 
