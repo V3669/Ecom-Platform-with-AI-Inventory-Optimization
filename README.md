@@ -30,33 +30,36 @@ Building a modern, scalable e-commerce platform with intelligent inventory manag
   - Order Status Tracking
   - Event Publishing/Listening
 
-- 🔄 AI Service (Port 8084) - In Progress
-  - Inventory Optimization Algorithms
-  - Demand Forecasting
-  - Trend Analysis
+- ✅ AI Service (Port 8084)
+  - Inventory Optimization with Prophet model
+  - Daily & Monthly Trend Detection
+  - Future Demand Forecasting
+  - Safety Stock Calculation
+  - Stock Recommendation Engine
+  - Event-Driven Integration with Inventory Service
+  - Includes Prophet Python Microservice (Port 5000)
 
 ## 🎯 Implementation Plan
 
-### Phase 1: Core Services (Current)
+### Phase 1: Core Services (Completed)
 - [x] API Gateway Setup
 - [x] User Service Implementation
 - [x] Inventory Service Implementation
 - [x] Order Service Implementation
-- [ ] AI Service Integration (In Progress)
-- [ ] Basic Inventory Optimization
+- [x] AI Service Integration
+- [x] Basic Inventory Optimization
 
-### Phase 2: AI Integration (Next Sprint)
-- Single Model Approach for MVP
-  - Daily/Weekly Order Trend Analysis
-  - Basic Demand Forecasting
-  - Inventory Level Recommendations
+### Phase 2: AI Enhancement (Current)
+- [ ] Multi-Model Approach Integration
+- [ ] External Trend API Integration
+- [ ] Customer Behavior Analysis
+- [ ] Category-Specific Optimization
 
-### Phase 3: Future Enhancements
-- Multi-Model Approach
-  - Seasonal Trend Analysis
-  - Product Category Specific Models
-  - Customer Behavior Analysis
-  - Price Sensitivity Models
+### Phase 3: Future Enhancements (Planned)
+- [ ] Real-time Anomaly Detection
+- [ ] Price Optimization
+- [ ] Promotional Impact Analysis
+- [ ] Supplier & Logistics Optimization
 
 ## 🤖 AI Implementation Details
 
@@ -75,6 +78,73 @@ Single Model Implementation
 └── Retraining Schedule
     └── Weekly Updates
 ```
+
+### Prophet AI Service
+The AI Service uses Facebook's Prophet, a powerful time series forecasting model, to predict future demand and optimize inventory levels. It implements a hybrid architecture:
+
+```
+AI Service Architecture
+├── Java Spring Boot Service (Port 8084)
+│   ├── RESTful API Endpoints
+│   ├── Inventory Optimization Logic
+│   ├── Event Handling & Processing
+│   └── Integration with Inventory Service
+│
+└── Python Prophet Service (Port 5000)
+    ├── Time Series Forecasting
+    ├── Trend Analysis
+    ├── Seasonality Detection
+    └── Future Demand Prediction
+```
+
+#### Prophet Service API Endpoints
+
+##### Forecast Demand
+```
+POST /api/forecast
+```
+Forecasts future demand based on historical data.
+
+**Request Body:**
+```json
+{
+  "historical_data": [
+    {"date": "2023-01-01", "quantity": 10},
+    {"date": "2023-01-02", "quantity": 12}
+  ],
+  "days_to_forecast": 30
+}
+```
+
+**Response:**
+```json
+{
+  "2023-02-01": 15.2,
+  "2023-02-02": 16.7
+}
+```
+
+##### Trend Analysis
+```
+POST /api/trends
+```
+Extracts trend components from historical data.
+
+**Request:**
+```json
+{
+  "historical_data": [
+    {"date": "2023-01-01", "quantity": 10},
+    {"date": "2023-01-02", "quantity": 12}
+  ]
+}
+```
+
+##### Seasonality Analysis
+```
+POST /api/seasonality
+```
+Extracts seasonal patterns from historical data.
 
 ### Future Vision
 ```
@@ -107,7 +177,7 @@ Multi-Model Architecture
 ▼             ▼             ▼             ▼
 ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐
 │  User   │  │Inventory│  │  Order  │  │   AI    │
-│ Service │  │Service│◀─▶│ Service│ │ Service │
+│ Service │  │Service│◀─▶│ Service │  │ Service │
 └─────────┘  └────┬────┘  └────┬────┘  └────┬────┘
                   │            │            │
                   └────────────┴────────────┘
@@ -163,9 +233,12 @@ Our platform uses event-driven communication through RabbitMQ to enable loose co
 - **Databases**: 
   - PostgreSQL (Users, Orders, Products)
   - Redis (Cache, Real-time Inventory)
-- **AI/ML**: Python, scikit-learn (MVP)
+- **AI/ML**: 
+  - Python, Facebook Prophet for time series forecasting
+  - Spring WebFlux for reactive API calls
 - **Authentication**: JWT
 - **API Gateway**: Spring Cloud Gateway
+- **Containerization**: Docker, Docker Compose
 
 ## 📊 Current Metrics & Goals
 
@@ -186,9 +259,11 @@ Our platform uses event-driven communication through RabbitMQ to enable loose co
 - PostgreSQL
 - Redis
 - RabbitMQ
-- Python 3.8+
+- Python 3.10+
+- Docker & Docker Compose (optional)
 
 ### Configuration
+
 ```yaml
 # API Gateway (Port 8080)
 spring:
@@ -227,17 +302,49 @@ spring:
   rabbitmq:
     host: localhost
     port: 5672
+
+# AI Service (Port 8084)
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ecom_ai
+  rabbitmq:
+    host: localhost
+    port: 5672
+  prophet:
+    service:
+      url: ${PROPHET_SERVICE_URL:http://localhost:5000}
 ```
 
 ### Running the Services
+
+#### Using Docker Compose
+
+```bash
+# Build and start all services
+docker-compose up -d
+
+# Check service status
+docker-compose ps
+
+# View logs
+docker-compose logs -f
+```
+
+#### Manual Setup
 1. Start PostgreSQL
 2. Start Redis
 3. Start RabbitMQ
-4. Launch API Gateway
-5. Launch User Service
-6. Launch Inventory Service
-7. Launch Order Service
-8. Launch AI Service (when implemented)
+4. Start Python Prophet Service
+   ```bash
+   cd ai-service/prophet-service
+   pip install -r requirements.txt
+   python app.py
+   ```
+5. Launch API Gateway
+6. Launch User Service
+7. Launch Inventory Service
+8. Launch Order Service
+9. Launch AI Service
 
 ## 📝 Contributing
 
@@ -261,4 +368,4 @@ Hey there! 👋 I'd love your help to make this project even better! Here's how 
 Feel free to reach out if you have questions or just want to chat about the project. Thanks for considering contributing! You rock! 🤘
 
 ## 📜 License
-This project is licensed under the MIT License - see the LICENSE file for details. 
+This project is licensed under the MIT License - see the LICENSE file for details.  

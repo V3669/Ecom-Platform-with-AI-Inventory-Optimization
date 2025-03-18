@@ -33,10 +33,14 @@ build/
 *.log
 logs/
 spring.log
-application-*.yml
-application-*.properties
-!application.yml
-!application.properties
+# Ignore all application configuration files
+**/application.yml
+**/application.yaml
+**/application.properties
+# Allow example configuration templates
+!**/application-example.yml
+!**/application-example.yaml
+!**/application-example.properties
 
 # Python
 __pycache__/
@@ -63,6 +67,16 @@ wheels/
 .env
 venv/
 ENV/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+pytestdebug.log
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+profile_default/
+ipython_config.py
 
 # IDE - IntelliJ
 .idea/
@@ -109,6 +123,13 @@ Thumbs.db
 # Docker
 .docker/
 docker-compose.override.yml
+*.env
+.dockerignore
+
+# Kubernetes
+kubeconfig
+*.kubeconfig
+kubectl-config
 
 # Secrets and Configurations
 *.pem
@@ -120,8 +141,19 @@ docker-compose.override.yml
 **/application-local.yml
 **/application-dev.yml
 **/application-prod.yml
+**/application-local.yaml
+**/application-dev.yaml
+**/application-prod.yaml
+**/application-local.properties
+**/application-dev.properties
+**/application-prod.properties
 **/secrets.yml
+**/secrets.yaml
 **/secrets.properties
+**/.env.local
+**/.env.development
+**/.env.test
+**/.env.production
 
 # Test coverage reports
 /coverage/
@@ -135,10 +167,13 @@ coverage.xml
 *.cover
 .hypothesis/
 .pytest_cache/
+jacoco/
+*.exec
 
 # Documentation
 /docs/_build/
 /site/
+/sphinx-docs/_build/
 
 # Node (for frontend if needed later)
 node_modules/
@@ -148,4 +183,36 @@ yarn-error.log*
 .env.local
 .env.development.local
 .env.test.local
-.env.production.local 
+.env.production.local
+
+# Monitoring & Logging
+/prometheus/data/
+/grafana/data/
+/elastic/data/
+/kibana/data/
+/logstash/data/
+
+# Package files
+*.tar.gz
+*.zip
+*.rar
+
+# Temporary directories
+**/tmp/
+**/temp/
+
+# Database dumps and files
+*.dump
+*.sql
+*.db
+*.sqlite
+*.sqlite3
+redis-data/
+
+# Terraform (if used for infrastructure)
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfplan
+.terraformrc
+terraform.rc 
